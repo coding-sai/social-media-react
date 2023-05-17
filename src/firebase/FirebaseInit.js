@@ -2,6 +2,7 @@ import fb from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import "firebase/compat/storage";
+import "firebase/compat/analytics";
 
 
 const firebaseApp = fb.initializeApp({
@@ -14,8 +15,9 @@ const firebaseApp = fb.initializeApp({
   // measurementId: "G-WSGFNDVN65"
 });
 
+const analytics = fb.analytics();
 const db = firebaseApp.firestore();
 const auth = fb.auth();
 const storage = fb.storage();
 
-export { db, auth, storage, fb };
+export { db, auth, storage, fb , analytics};
