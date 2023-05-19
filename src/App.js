@@ -184,11 +184,8 @@ function App() {
 
       <div className="app__header">
         <div className="app__headerWrapper">
-          {/* <img
-            src="	https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
-            alt="Instagram original logo"
-          /> */}
-          <h1 style={{ fontSize: 25 }}>KWINKIT</h1>
+          
+          <h1 style={{ fontSize: 25 }}>Kwinkit</h1>
           {user ? (
             <button className="text__button" onClick={() => auth.signOut()}>
               Logout
