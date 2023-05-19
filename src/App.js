@@ -153,10 +153,7 @@ function App() {
       <Modal open={openLogin} onClose={() => setOpenLogin(false)}>
         <div style={modalStyle} className={classes.paper}>
           <center>
-            <img
-              src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
-              alt="Instagram original logo"
-            />
+            <a>Kwinkit</a>
           </center>
           <form className="app__signUp">
             <input
