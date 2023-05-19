@@ -152,9 +152,7 @@ function App() {
       {/* Change modal open to be determined by openLogin */}
       <Modal open={openLogin} onClose={() => setOpenLogin(false)}>
         <div style={modalStyle} className={classes.paper}>
-          <center>
-           <a>Kwinkit</a>
-          </center>
+         
           <form className="app__signUp">
             <input
               placeholder="Email address"
