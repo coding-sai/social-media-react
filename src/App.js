@@ -114,7 +114,7 @@ function App() {
       <Modal open={openSignup} onClose={() => setOpenSignup(false)}>
         <div style={modalStyle} className={classes.paper}>
           <center>
-            
+           <a>Kwinkit</a>
           </center>
           <form className="app__signUp">
             <input
