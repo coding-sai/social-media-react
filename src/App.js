@@ -62,7 +62,6 @@ function App() {
     db.collection("posts")
       .orderBy("timestamp", "desc")
       .onSnapshot((snapshot) => {
-        // Everytime a new snapshot is noted (i.e. changes are made to posts in the database), this piece of code is fired
         setPosts(
           snapshot.docs.map((doc) => ({
             id: doc.id,
@@ -212,10 +211,11 @@ function App() {
           <Post
             key={id}
             postId={id}
-            user={user} // To pass current user to add current user when adding comment
+            user={user}
             username={post.username}
             caption={post.caption}
             imageUrl={post.imageUrl}
+            postCreatorUserId={post.userId}
           />
         ))}
       </div>

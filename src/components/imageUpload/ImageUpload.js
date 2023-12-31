@@ -40,6 +40,7 @@ function ImageUpload({ user }) {
             // Post image inside db
             db.collection("posts").add({
               timestamp: fb.firestore.FieldValue.serverTimestamp(),
+              userId: user.uid,
               caption: caption,
               imageUrl: url,
               username: user.displayName,

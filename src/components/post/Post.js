@@ -6,11 +6,18 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import Favorite from '@material-ui/icons/Favorite';
 import { db, fb } from "../../firebase/FirebaseInit";
 
-function Post({ postId, user, username, caption, imageUrl }) {
+function Post({ postId, user, username, caption, imageUrl, postCreatorUserId }) {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
   const [liked, setLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(0);
+
+    // Function to delete the post
+  const deletePost = async () => {
+    if (window.confirm("Are you sure you want to delete this post?")) {
+      await db.collection("posts").doc(postId).delete();
+    }
+  };
 
   useEffect(() => {
     let unsubscribe;
@@ -34,11 +41,13 @@ function Post({ postId, user, username, caption, imageUrl }) {
           setLikesCount(snapshot.size);
           setLiked(snapshot.docs.some(doc => doc.id === user?.uid));
         });
+
     }
 
     return () => {
       if (unsubscribe) unsubscribe();
       if (unsubscribeLikes) unsubscribeLikes();
+
     };
   }, [postId, user]);
 
@@ -77,8 +86,12 @@ function Post({ postId, user, username, caption, imageUrl }) {
       <div className="post__header">
         <Avatar className="post__avatar" alt={username} src="/static/images/avatar/1.jpg" />
         <h3>{username}</h3>
-      </div>
 
+        {user && user.uid === postCreatorUserId && (
+          <button onClick={deletePost}>Delete Post</button>
+        )}
+      </div>
+      
       <img className="post__image" src={imageUrl} alt="" />
 
       <h4 className="post__text">
