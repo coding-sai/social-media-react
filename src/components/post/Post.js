@@ -19,6 +19,13 @@ function Post({ postId, user, username, caption, imageUrl, postCreatorUserId }) 
     }
   };
 
+  const deleteComment = async (commentId) => {
+    if (window.confirm("Are you sure you want to delete this comment?")) {
+      await db.collection("posts").doc(postId).collection("comments").doc(commentId).delete();
+    }
+  };
+  
+
   useEffect(() => {
     let unsubscribe;
     let unsubscribeLikes;
@@ -30,8 +37,9 @@ function Post({ postId, user, username, caption, imageUrl, postCreatorUserId }) 
         .collection("comments")
         .orderBy("timestamp", "desc")
         .onSnapshot((snapshot) => {
-          setComments(snapshot.docs.map((doc) => doc.data()));
-        });
+          setComments(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }
+        )))});
+
 
       unsubscribeLikes = db
         .collection("posts")
@@ -47,7 +55,6 @@ function Post({ postId, user, username, caption, imageUrl, postCreatorUserId }) 
     return () => {
       if (unsubscribe) unsubscribe();
       if (unsubscribeLikes) unsubscribeLikes();
-
     };
   }, [postId, user]);
 
@@ -57,6 +64,7 @@ function Post({ postId, user, username, caption, imageUrl, postCreatorUserId }) 
     db.collection("posts").doc(postId).collection("comments").add({
       text: comment,
       username: user.displayName,
+      userId: user.uid,
       timestamp: fb.firestore.FieldValue.serverTimestamp(),
     });
 
@@ -83,39 +91,49 @@ function Post({ postId, user, username, caption, imageUrl, postCreatorUserId }) 
 
   return (
     <div className="post">
-      <div className="post__header">
-        <Avatar className="post__avatar" alt={username} src="/static/images/avatar/1.jpg" />
-        <h3>{username}</h3>
+        <div className="post__header">
+            <Avatar className="post__avatar" alt={username} src="/static/images/avatar/1.jpg" />
+            <h3>{username}</h3>
 
-        {user && user.uid === postCreatorUserId && (
-          <button onClick={deletePost}>Delete Post</button>
-        )}
-      </div>
+            {user && user.uid === postCreatorUserId && (
+                <button className="deletePostButton" onClick={deletePost}>
+                    <img src="/icon-trash.png" alt="Delete" />
+                </button>
+            )}
+        </div>
       
-      <img className="post__image" src={imageUrl} alt="" />
+        <img className="post__image" src={imageUrl} alt="" />
 
-      <h4 className="post__text">
-        <strong>{username}</strong> {caption}
-      </h4>
+        <h4 className="post__text">
+            <strong>{username}</strong> {caption}
+        </h4>
 
-      <div className="post__actions">
-        <IconButton onClick={toggleLike}>
-          {liked ? <Favorite color="error" /> : <FavoriteBorder />}
-        </IconButton>
-        <span>{likesCount} likes</span>
-      </div>
+        <div className="post__actions">
+            <IconButton onClick={toggleLike}>
+            {liked ? <Favorite color="error" /> : <FavoriteBorder />}
+            </IconButton>
+            <span>{likesCount} likes</span>
+        </div>
 
-      <div className={comments.length > 0 ? "post__comments" : ""}>
-        {comments.map((comment, index) => (
-          <p key={index}>
-            <strong>{comment.username}</strong> {comment.text}
-          </p>
-        ))}
-      </div>
+        <div className={comments.length > 0 ? "post__comments" : ""}>
+            {comments.map((comment) => (
+            <div key={comment.id} className="comment">
+                <p>
+                    <strong>{comment.username}</strong> {comment.text}
+                </p>
 
-      {user && (
+                {user && user.uid === comment.userId && (
+                    <button className="deleteCommentButton" onClick={() => deleteComment(comment.id)}>
+                    <img src="/icon-trash.png" alt="Delete" />
+                    </button>
+                )}
+            </div>
+            ))}
+        </div>
+
+        {user && (
         <form className="comment__form" onSubmit={postComment}>
-          <div className="comment__wrapper">
+        <div className="comment__wrapper">
             <input
               className="comment__Input"
               type="text"
@@ -130,7 +148,19 @@ function Post({ postId, user, username, caption, imageUrl, postCreatorUserId }) 
             >
               Post
             </button>
-          </div>
+        </div>
+
+        <div key={comment.id} className="comment">
+            <p>
+                <strong>{comment.username}</strong> {comment.text}
+            </p>
+                {user && user.uid === comment.userId && (
+                    <button onClick={() => deleteComment(comment.id)}>
+                    Delete
+                    </button>)}
+        </div>
+
+
         </form>
       )}
     </div>

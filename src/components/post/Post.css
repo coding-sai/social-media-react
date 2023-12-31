@@ -18,6 +18,13 @@
   align-items: center;
   padding: 15px 20px;
 }
+
+.post__headerLeft {
+    /* Keeps the profile picture and name grouped and aligned to the left */
+    display: flex;
+    align-items: center;
+  }
+
 .post__avatar {
   margin-right: 10px;
 }
@@ -59,3 +66,48 @@
   width: 30%;
   text-align: center;
 }
+
+.deleteCommentButton {
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    border-radius: 13px;
+    transition: background-color 0.15s;
+    background: transparent;
+    height: 25px;
+    width: 25px;
+  }
+
+  .deleteCommentButton:hover {
+    background: rgb(255, 146, 164);
+  }
+  
+  .deleteCommentButton img {
+    width: 15px; /* Adjust size as needed */
+    height: auto;
+    margin-top: 3px;
+  }
+  
+  .deletePostButton {
+    height: 25px;
+    width: 25px;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    border-radius: 13px;
+    transition: background-color 0.15s;
+    background: transparent;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: 12px;
+  }
+
+  .deletePostButton:hover {
+    background: rgb(255, 146, 164);
+  }
+
+  .deletePostButton img {
+    width: 15px; /* Adjust size as needed */
+    height: auto;
+    margin-top: 4px;
+  }
