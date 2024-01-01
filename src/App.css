@@ -11,7 +11,7 @@ body {
   line-height: 18px;
 }
 .app {
-  background-color: #fafafa;
+  background-color: #fff6f7;
   min-height: 100vh;
 }
 .app__header {
@@ -19,11 +19,17 @@ body {
   top: 0;
   z-index: 9999;
   background-color: white;
-  height: 54px;
+  height: 75px;
   display: flex;
   align-items: center;
   object-fit: contain;
   border-bottom: 1px solid lightgray;
+}
+
+.logo {
+    width: 15%; /* adjust this value as needed */
+    height: auto;
+    margin-top: 2px;
 }
 .app__headerWrapper {
   max-width: 975px;
@@ -63,6 +69,13 @@ button {
   flex-direction: column;
   margin: 28px 0;
   row-gap: 15px;
+}
+
+.Signerup {
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+    display: block;
 }
 
 .timeline {

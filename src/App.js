@@ -112,7 +112,9 @@ function App() {
     <div className="app">
       <Modal open={openSignup} onClose={() => setOpenSignup(false)}>
         <div style={modalStyle} className={classes.paper}>
-          
+            <div>
+                <img className="Signerup" src="/Kwinkit name and slogan.png" alt="Kwinkit - Start a change" />
+            </div>
           <form className="app__signUp">
             <input
               placeholder="Username"
@@ -150,6 +152,10 @@ function App() {
       <Modal open={openLogin} onClose={() => setOpenLogin(false)}>
         <div style={modalStyle} className={classes.paper}>
           
+            <div>
+                <img className="Signerup" src="/Kwinkit name and slogan.png" alt="Kwinkit - Start a change" />
+            </div>
+
           <form className="app__signUp">
             <input
               placeholder="Email address"
@@ -179,8 +185,9 @@ function App() {
 
       <div className="app__header">
         <div className="app__headerWrapper">
-          
-          <h1 style={{ fontSize: 25 }}>Kwinkit</h1>
+         <div>
+            <img class="logo" src="/Kwinkit logo.png" alt="Kwinkit" />
+        </div>
           {user ? (
             <button className="text__button" onClick={() => auth.signOut()}>
               Logout
