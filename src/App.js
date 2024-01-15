@@ -5,6 +5,8 @@ import { db, auth } from "./firebase/FirebaseInit";
 import { makeStyles } from "@material-ui/core";
 import Modal from "@material-ui/core/Modal";
 import ImageUpload from "./components/imageUpload/ImageUpload";
+import Profile from './components/profile/Profile';
+
 
 function getModalStyle() {
   const top = 50;
@@ -38,20 +40,18 @@ function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // create state to keep track of user
+
+  const [showProfile, setShowProfile] = useState(false);
   const [user, setUser] = useState(null);
 
-  // For authentication - Signup
+
+
   useEffect(() => {
-    // listens to auth-based changes
     auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        // user has logged in
         console.log(authUser);
         setUser(authUser);
-        // function to keep the user logged in
       } else {
-        // user has logged out
 
         setUser(null);
       }
@@ -78,7 +78,7 @@ function App() {
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
 
-        // store user in firestore
+
         db.collection("users").add({
           username,
           email
@@ -186,8 +186,9 @@ function App() {
       <div className="app__header">
         <div className="app__headerWrapper">
          <div>
-            <img class="logo" src="/Kwinkit logo.png" alt="Kwinkit" />
+            <img className="logo" src="/Kwinkit logo.png" alt="Kwinkit" />
         </div>
+
           {user ? (
             <button className="text__button" onClick={() => auth.signOut()}>
               Logout
@@ -210,22 +211,35 @@ function App() {
           )}
         </div>
       </div>
-
-      <div className="timeline">
+    
+      <button className="profile button" onClick={() => setShowProfile(!showProfile)}>
+    <img className="profile icon" src="/pictures/profile.png" alt="Profile" />
+    <span className="profile-text">Profile</span>
+</button>
+        
+{showProfile ? ( 
+    <div className="user-profile">
+        {/* Render the Profile component with user data */}
+        <Profile user={user} username={user?.displayName || 'No User'} />
+    </div>
+) : (
+    <div className="timeline">
         {user && <ImageUpload user={user} />}
 
         {posts.map(({ id, post }) => (
-          <Post
-            key={id}
-            postId={id}
-            user={user}
-            username={post.username}
-            caption={post.caption}
-            imageUrl={post.imageUrl}
-            postCreatorUserId={post.userId}
-          />
+            <Post
+                key={id}
+                postId={id}
+                user={user}
+                username={post.username}
+                caption={post.caption}
+                imageUrl={post.imageUrl}
+                userId={post.userId}
+            />
         ))}
-      </div>
+    </div>
+)}
+
     </div>
   );
 }

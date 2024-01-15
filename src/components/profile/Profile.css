@@ -1,0 +1,58 @@
+/* .user-profile {
+    
+}
+
+
+.user-posts-grid {
+    
+}
+
+.post {
+    
+}
+
+.post-image {
+    
+} */
+
+.profile-photo {
+    /* border: 2px solid blue; */
+    width: 200px; /* size of image */
+    height: 200px; /* size of image */
+}
+
+.profile-username {
+    /* border: 2px solid green; */
+}
+
+.both {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* Center items horizontally */
+    text-align: center;
+    /* border: 2px solid red; */
+
+
+    position: absolute;
+    top: 15%;
+    left: 25%;
+}
+
+.user-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Creates 3 columns with equal width */
+    grid-gap: 32px; /* Adjust the space between the images */
+    padding: 16px; /* Adds some padding around the grid */
+    margin-top: 250px;
+  }
+  
+  .user-posts-grid .post {
+    /* If your images are not direct children of the grid container,
+       you might not need this class. Adjust as needed. */
+  }
+  
+  .user-posts-grid .post img {
+    width: 100%; /* Makes image take full width of the column */
+    height: auto; /* Keeps the aspect ratio of the image */
+    display: block; /* Removes any extra line-height space below the image */
+  }

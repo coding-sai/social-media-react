@@ -31,6 +31,52 @@ body {
     height: auto;
     margin-top: 2px;
 }
+
+
+.profile.button {
+    width: 139px;
+    height: 39px;
+    border-radius: 20px;
+    margin-left: 50px;
+    margin-top: 20px;
+    background: transparent;
+    transition: background 0.15s;
+
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-text {
+    position: absolute;
+    opacity: 0; /* Hide text initially */
+    transition: opacity 0.15s;
+    left: 50%;  /* Center the text */
+    top: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap; /* Ensures text stays on one line */
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+}
+
+.profile.button:hover .profile-text {
+    opacity: 1; /* Show text on hover */
+}
+
+.profile.button:hover {
+    background: rgb(255, 136, 156);
+}
+
+.profile.icon {
+    width: 45px;
+    height: auto;
+    top: 50%;  
+    left: 50%; 
+    transform: translate(-111%, -7.5%);
+}
+
+
 .app__headerWrapper {
   max-width: 975px;
   margin: 0 auto;

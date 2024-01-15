@@ -6,7 +6,7 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import Favorite from '@material-ui/icons/Favorite';
 import { db, fb } from "../../firebase/FirebaseInit";
 
-function Post({ postId, user, username, caption, imageUrl, postCreatorUserId }) {
+function Post({ postId, user, username, caption, imageUrl, userId }) {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
   const [liked, setLiked] = useState(false);
@@ -95,7 +95,7 @@ function Post({ postId, user, username, caption, imageUrl, postCreatorUserId }) 
             <Avatar className="post__avatar" alt={username} src="/static/images/avatar/1.jpg" />
             <h3>{username}</h3>
 
-            {user && user.uid === postCreatorUserId && (
+            {user && user.uid === userId && (
                 <button className="deletePostButton" onClick={deletePost}>
                     <img src="/icon-trash.png" alt="Delete" />
                 </button>
